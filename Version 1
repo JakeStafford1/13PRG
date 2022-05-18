@@ -1,0 +1,11 @@
+from tkinter import *
+window = Tk()
+
+window.title("Year 9 Math Quiz")
+window.geometry("800x600")
+window.configure(bg='#93c47d')
+
+frame1 = Frame(window, highlightbackground="38761d", highlightthickness=1,width=600, height=100, bd= 0)
+frame1.pack()
+
+window.mainloop()

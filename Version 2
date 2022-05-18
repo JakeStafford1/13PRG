@@ -1,0 +1,35 @@
+from tkinter import *
+from PIL import ImageTk, Image
+
+window = Tk()
+
+window.title("Year 9 Math Quiz")
+window.geometry("800x600")
+window.configure(bg='#93c47d')
+
+frame1 = Frame(window, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+frame1.place( x = 0, y = 0)
+
+myLabeltitle = Label(window, text = "Mr Khan’s Math Class Quiz" , fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+myLabelInfo = Label(window, text = "This quiz contains 8 questions and each question is randomly picked from a list of 20 questions related to the topic. Each question can be skipped but will be marked as incorrect. Press Start when ready", fg ='black', bg = "#93c47d", font = ("Calibri", 18))
+
+myLabeltitle.place(x = 15, y = 15)
+myLabelInfo.place( x = 15, y = 500)
+
+def Start():
+    return
+
+def Exit():
+    return
+
+#img = PhotoImage(file= "Startimage.jpg")          
+#Start_image = Label(window, image = img, bg ='#93c47d', highlightthickness = 0)
+#Start_image.place(x = 530, y = 1)
+
+
+StartButton = Button(window, text="Start", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Start)
+StartButton.place(x = 40, y = 120, width = 300, height = 90)
+
+ExitButton = Button(window, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+ExitButton.place(x = 40, y = 280, width = 300, height = 90)
+window.mainloop()

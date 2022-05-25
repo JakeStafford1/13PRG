@@ -1,0 +1,106 @@
+from tkinter import *
+import random
+window = Tk()
+
+window.title("Year 9 Math Quiz")
+window.geometry("800x600")
+window.configure(bg='#93c47d')
+
+frame1 = Frame(window, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+frame1.place( x = 0, y = 0)
+
+myLabeltitle = Label(window, text = "Mr Khan’s Math Class Quiz" , fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+myLabelInfo = Label(window, text = "This quiz contains 8 questions and each question is randomly\n picked from a list of 20 questions related to the topic. Each question\n can be skipped but will be marked as incorrect. Press Start when ready", fg ='black', bg = "#93c47d", font = ("Calibri", 18))
+
+myLabeltitle.place(x = 15, y = 15)
+myLabelInfo.place( x = 30, y = 450)
+
+def Start():
+    window2 = Toplevel(window)
+
+    window2.geometry("800x600")
+    window2.configure(bg='#93c47d')
+    frame2 = Frame(window2, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+    frame2.place( x = 0, y = 0)
+
+
+    QuestionBox = Frame(window2, highlightbackground="#38761d", highlightthickness=5,width=700, height=200,bg ="#D9EAD3",bd= 0)
+    
+    QuestionBox.place( x = 50, y = 100)
+
+    #Q = open('Questions.txt','r')
+    #Question_Split = []
+    with open('Questions.txt') as f:
+        Question2 = f.read()
+        LCV1 = 1
+        #while LCV1 != 20:
+        #for LCV1 in range(len(Question2)):
+        #    Question2[LCV1] = Question2[LCV1].replace("\n","")
+        #    LCV1 += 1
+        Question_Split = (Question2.split(","))
+    print(Question2)
+    print("-------------")
+    print(Question_Split)
+    randomnum = random.randrange(0,19)
+    #SelectedQuestion = random.choice(tuple(Question_Split))
+    print("---------------")
+    Question = Question_Split[randomnum]
+    print(Question_Split[randomnum])
+    with open('Correct.txt') as f2:
+        C_Question = f2.read()
+        C_Question_Split = (C_Question.split(","))
+    print("-------------")
+    print(C_Question_Split)
+    Correct = C_Question_Split[randomnum]
+
+    #print(Question_Split[0])
+    #print(Question_Split.pop(randomnum))
+    #print (Question2)
+
+    QuestionLabel = Label(window2, text = "Question #: " + Question, fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+    QuestionLabel.place( x = 50, y = 15)
+
+    def First():
+        return
+    def Second():
+        return
+    def Third():
+        return
+    def Fourth():
+        return
+    def Exit():
+        window2.destroy()
+    def Skip():
+        return
+
+    First = Button(window2, text= Correct, padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = First)
+    First.place(x = 50, y = 330, width = 325, height = 60)
+    Second = Button(window2, text="2", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Second)
+    Second.place(x = 425, y = 330, width = 325, height = 60)
+    Third = Button(window2, text="3", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Third)
+    Third.place(x = 50, y = 400, width = 325, height = 60)
+    Fourth = Button(window2, text="4", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Fourth)
+    Fourth.place(x = 425, y = 400, width = 325, height = 60)
+
+    Exit = Button(window2, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+    Exit.place(x = 50, y = 480, width = 325, height = 90)
+    Skip = Button(window2, text="Skip", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Skip)
+    Skip.place(x = 425, y = 480, width = 325, height = 90)
+
+
+    window2.mainloop()
+    return
+
+def Exit():
+    window.destroy()
+
+#img = PhotoImage(file= "Start.jpg")          
+#Start_image = Label(window, image = img, bg ='#93c47d', highlightthickness = 0)
+#Start_image.place(x = 530, y = 1)
+
+StartButton = Button(window, text="Start", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Start)
+StartButton.place(x = 40, y = 120, width = 300, height = 90)
+
+ExitButton = Button(window, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+ExitButton.place(x = 40, y = 280, width = 300, height = 90)
+window.mainloop()

@@ -1,0 +1,256 @@
+from tkinter import *
+    import random
+    from turtle import width 
+    window = Tk()
+
+    window.title("Mr Khans Math Quiz")
+    window.geometry("800x600")
+    window.configure(bg='#93c47d')
+
+    frame1 = Frame(window, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+    frame1.place( x = 0, y = 0)
+
+    myLabeltitle = Label(window, text = "Mr Khans Math Quiz" , fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+    myLabelInfo = Label(window, text = "This quiz contains 8 questions about your mom and each question is randomly\n picked from a list of 20 questions related to the topic. Each question\n can be skipped but will be marked as incorrect. Press Start when ready", fg ='black', bg = "#93c47d", font = ("Calibri", 18))
+    myLabeltitle.place(x = 15, y = 15)
+    myLabelInfo.place( x = 12, y = 450)
+    #MAKE CONSTANTS FOR 12 AND ANY OTHER ONES
+    img = PhotoImage(file="PLEASE1.png")
+    label = Label(window,image=img, bg = "#93c47d")
+    label.place(x=400, y=100)
+    #CONSTANTS NEED TO BE IN ALL CAPS
+    def Reedo():
+        global Correct_Answers
+        global Number
+        global Total
+        global num
+        global Skips
+        global randomnums
+        global var
+        var = "start"
+        #global AMOUNT
+        #AMOUNT = 13
+        Correct_Answers = 0
+        Number = 1
+        Total = 1
+        num = 0
+        Skips = 0
+        randomnums = random.sample(range(20), 20)
+
+    Reedo()
+    def Start():
+        #if var == "start":
+        #    TrueFalse()
+        Placeholder()
+        global var
+        global Number
+        global window2
+        window2 = Toplevel(window)
+        window2.geometry("800x600")
+        window2.configure(bg='#93c47d')
+
+        frame2 = Frame(window2, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+        frame2.place( x = 0, y = 0)
+        QuestionBox = Frame(window2, highlightbackground="#38761d", highlightthickness=5,width=700, height=200,bg ="#D9EAD3",bd= 0)  
+        QuestionBox.place( x = 50, y = 100)
+        
+        def First():
+            global Correct_Answers
+            global Total
+            Correct_Answers = Correct_Answers + 1
+            Total = Total + 1
+            window2.destroy()
+            if Total == 13:
+                Final() 
+            else:
+                Start()
+
+        def Second():
+            global Total
+            Total = Total + 1
+            window2.destroy()
+            if Total == 13:
+                Final() 
+            else:
+                Start()
+            
+        def Third():
+            global Total
+            Total = Total + 1
+            window2.destroy()
+            if Total == 13:
+                Final() 
+            else:
+                Start()
+
+        def Fourth():
+            global Total
+            Total = Total + 1
+            window2.destroy()
+            if Total == 13:
+                Final() 
+            else:
+                Start()
+
+        def Exit():
+            window2.destroy()
+
+        def Skip():
+            global Skips
+            if Skips != 2:
+                Skips = Skips + 1
+                window2.destroy()
+                Start()
+            else:
+                SkipsLabel = Label(window2, text = "No More Skips", fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+                SkipsLabel.place(x = 375, y = 220, anchor = "n")
+        
+        if var == "start":
+            QuestionLabel = Label(window2, text = "Question {}: True or False".format(Number), fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+            QuestionLabel.place( x = 50, y = 15)
+            Question_real = Label(window2, text = Question, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Question_real.place(x = 375, y = 125, anchor = "n") 
+            Question_ting = Label(window2, text = "The answer is {}".format(Correct), fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Question_ting.place(x = 375, y = 200, anchor = "n") 
+            
+            First = Button(window2, text= "True", padx = 35, pady = 10, font = ("Calibri", 30), activebackground = "green", borderwidth = 4, command = First)
+            First.place(x = 50, y = 330, width = 325, height = 60)
+            Second = Button(window2, text= "False", padx = 35, pady = 10, font = ("Calibri", 30), activebackground="red", borderwidth = 4, command = Second)
+            Second.place(x = 425, y = 330, width = 325, height = 60)
+            Exit = Button(window2, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+            Exit.place(x = 50, y = 480, width = 325, height = 90)
+            Skip = Button(window2, text="Skip", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Skip)
+            Skip.place(x = 425, y = 480, width = 325, height = 90)
+        else:
+            QuestionLabel = Label(window2, text = "Question {}: Solve the following".format(Number), fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+            QuestionLabel.place( x = 50, y = 15)
+
+            Question_real = Label(window2, text = Question, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Question_real.place(x = 375, y = 150, anchor = "n") 
+
+            First = Button(window2, text= Correct, padx = 35, pady = 10, font = ("Calibri", 30), activebackground = "green", borderwidth = 4, command = First)
+            First.place(x = 50, y = 330, width = 325, height = 60)
+            Second = Button(window2, text= One, padx = 35, pady = 10, font = ("Calibri", 30), activebackground="red", borderwidth = 4, command = Second)
+            Second.place(x = 425, y = 330, width = 325, height = 60)
+            Third = Button(window2, text= Two, padx = 35, pady = 10, font = ("Calibri", 30), activebackground="red", borderwidth = 4, command = Third)
+            Third.place(x = 50, y = 400, width = 325, height = 60)
+            Fourth = Button(window2, text= Three, padx = 35, pady = 10, font = ("Calibri", 30), activebackground="red", borderwidth = 4, command = Fourth)
+            Fourth.place(x = 425, y = 400, width = 325, height = 60)
+
+            Exit = Button(window2, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+            Exit.place(x = 50, y = 480, width = 325, height = 90)
+            Skip = Button(window2, text="Skip", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Skip)
+            Skip.place(x = 425, y = 480, width = 325, height = 90)
+        var = "Done"
+        Number = Number + 1
+        window2.mainloop()
+
+    #def TrueFalse():
+        #Improve the functionality of this function
+        #print("This is before popping")
+        #print(randomnums)
+        #Tf = randomnums[num]
+        #randomnums.pop[0]
+        #print(randomnums)
+        #with open('Correct.txt') as f2t:
+        #    temp = f2t.read()
+        #    temp2 = (temp.split(","))
+        #temp3 = temp2[Tf]
+        #This is 
+        #print(temp3)
+
+        #num = num + 1
+        #return
+
+    def Placeholder():
+        global Question
+        global Correct
+        global One
+        global Two
+        global Three
+        global num
+        Test = randomnums[num]
+        num = num + 1
+        print(randomnums)
+        print(Test)
+
+        with open('Questions.txt') as f:
+            Question2 = f.read()
+            Question_Split = (Question2.split(","))
+        Question = Question_Split[Test]
+        with open('Correct.txt') as f2:
+            C_Question = f2.read()
+            C_Question_Split = (C_Question.split(","))
+        Correct = C_Question_Split[Test]
+        with open('Wrong.txt') as f3:
+            W_Answers = f3.read()
+            W_Answers_split = (W_Answers.split("/"))
+        Wrong = W_Answers_split[Test]
+        ahhh = (Wrong.split(","))
+        
+        #randomnums = random.sample(range(len(Question_Split)+1, len(Question_Split)+1))
+        One = ahhh[0]
+        Two = ahhh[1]
+        Three = ahhh [2]
+
+    def Final():
+        global window3
+        window3 = Toplevel(window)
+
+        window3.geometry("800x600")
+        window3.configure(bg='#93c47d')
+        frame3 = Frame(window3, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+        frame3.place( x = 0, y = 0)
+
+        finalTitle = Frame(window3, highlightbackground="#38761d", highlightthickness=5,width=700, height=100,bg ="#D9EAD3",bd= 0)  
+        finalTitle.place( x = 50, y = 15)
+        BigBox = Frame(window3, highlightbackground="#38761d", highlightthickness=5,width=700, height=250,bg ="#D9EAD3",bd= 0)  
+        BigBox.place( x = 50, y = 130)
+
+        Words = Label(window3, text = "Overall Mark", fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+        Words.place( x = 250, y = 30)
+
+        if Correct_Answers >= 10:
+            Grade = "Achieved with Excellence"
+            Comment = "Fantastic!"
+        elif Correct_Answers >= 7 and Correct_Answers <= 9:
+            Grade = "Achieved with Merit"
+            Comment = "Great Job"
+        elif Correct_Answers >= 4 and Correct_Answers <=6:
+            Grade = "Achieved"
+            Comment = "Almost there"
+        else:
+            Grade = "Not Achieved"
+            Comment = ":("
+        
+        LabelGrade = Label(window3, text = Grade, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+        LabelGrade.place( x = 400, y = 180, anchor = "c")
+        LabelWords = Label(window3, text = "{}/12 Questions Correct".format(Correct_Answers), fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+        LabelWords.place(x = 175, y = 220)
+        LabelMoreWords = Label(window3, text = Comment, fg = 'black', bg = "#D9EAD3", font = ("Calibri", 38))
+        LabelMoreWords.place( x = 375, y = 320, anchor = "c")
+
+        def Exit():
+            window.destroy()
+        
+        def Restart():
+            global window2
+            global window3
+            window2.destroy()
+            window3.destroy()
+            Reedo()
+        
+        Exit = Button(window3, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+        Exit.place(x = 50, y = 480, width = 325, height = 90)
+        Restart = Button(window3, text="Restart", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Restart)
+        Restart.place(x = 425, y = 480, width = 325, height = 90)
+
+    def Exit():
+        window.destroy()
+
+    StartButton = Button(window, text="Start", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Start)
+    StartButton.place(x = 40, y = 120, width = 300, height = 90)
+
+    ExitButton = Button(window, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+    ExitButton.place(x = 40, y = 280, width = 300, height = 90)
+    window.mainloop()

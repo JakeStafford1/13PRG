@@ -1,0 +1,293 @@
+#Imports functions such as Tkinter and random
+from tkinter import *
+import random
+from turtle import width
+
+#Creates the start screen window and places all the infomation onto the screen such as buttons using label, place, frame and other window option
+window = Tk()
+window.title("Mr Khans Math Quiz")
+window.geometry("800x600")
+window.configure(bg='#93c47d')
+frame1 = Frame(window, highlightbackground="#38761d", highlightthickness=7,width=800, height=600, bg="#93c47d", bd=0)
+frame1.place(x=0, y=0)
+my_label_title = Label(window, text="Mr Khan's Math Quiz",fg ='black',bg="#93c47d",font=("Calibri", 38))
+my_label_info = Label(window, text = "This quiz contains 8 questions about your mom and each question is randomly\n picked from a list of 20 questions related to the topic. Each question\n can be skipped but will be marked as incorrect. Press Start when ready", fg ='black', bg = "#93c47d", font = ("Calibri", 18))
+my_label_title.place(x=15, y=15)
+my_label_info.place(x=12, y=450)
+
+#Creates and places image on start screen using photoimage and label
+#img = PhotoImage(file="PLEASE1.png")
+#label = Label(window,image=img, bg="#93c47d")
+#label.place(x=400, y=100)
+
+#CONSTANTS AND OTHER STUFF #####################################################################################
+#Restart function that runs every time the program is restarted though the button at the end of the program
+#or first opened by setting variables back to their original values and then globals the function to be used later on 
+def Reedo():
+    global Correct_answers
+    global Number
+    global Total
+    global num
+    global Skips
+    global random_nums
+    global VAR
+    global Test
+    global num2
+    global random_nums2
+    VAR=0
+    Test=0
+    Correct_answers=0
+    Number=1
+    Total=1
+    num2=0
+    num=0
+    Skips=0
+    random_nums = random.sample(range(20), 20)
+    random_nums2 = random.sample(range(4), 4)
+
+#Calls Restart function
+Reedo()
+
+#Defines the start function which creates the question screen and uses labels and buttons to place onto the screen.
+#It contains other function that run once a button is pressed on the question screen 
+def Start():
+
+    #Calls the Read function (Explained when function is defined)
+    Read()
+    window.withdraw()
+    global VAR
+    global Number
+    global window2
+    global num2
+    global First
+    global Second
+    global Third
+    global Fourth
+    window2 = Toplevel(window)
+    window2.geometry("800x600")
+    window2.configure(bg='#93c47d')
+
+    frame2 = Frame(window2, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+    frame2.place( x = 0, y = 0)
+    Question_box = Frame(window2, highlightbackground="#38761d", highlightthickness=5,width=700, height=200,bg ="#D9EAD3",bd= 0)  
+    Question_box.place( x = 50, y = 100)
+
+    #Defines the Screen function which destroys the question screen and checks to see if the user has answered 12 questions and if so it will run the Final function or run the Start function
+    def Screen():
+        window2.destroy()
+        if Total == 13:
+            Final() 
+        else:
+            Start()
+
+    #Defines the F function. F is a button and when pressed it will add one to the Correct_answer and Total variable. It also displays the correct answer using .configure and then opens a new question screen
+    def F():
+        global Correct_answers
+        global Total
+        Correct_answers = Correct_answers + 1
+        Total = Total + 1
+        First.configure(bg = "green")
+        Second.configure(state = "disabled")
+        try:
+            Third.configure(state = "disabled")
+            Fourth.configure(state = "disabled")
+        except:
+            ()
+        window2.after(1250,Screen)
+    
+    #Defines the S function. S is a button and when pressed it will add one to the Total variable. It also displays the answer chosen using .configure and then opens a new question screen
+    def S():
+        global Total
+        Total = Total + 1
+        Second.configure(bg = "red")
+        First.configure(state = "disabled")
+        try:
+            Third.configure(state = "disabled")
+            Fourth.configure(state = "disabled")
+        except:
+            ()
+        window2.after(1250,Screen)
+
+    #Defines the T function. T is a button and when pressed it will add one to the Total variable. It also displays the answer chosen using .configure and then opens a new question screen
+    def T():
+        global Total
+        Total = Total + 1
+        First.configure(state = "disabled")
+        Second.configure(state = "disabled")
+        try:
+            Third.configure(bg = "red")
+            Fourth.configure(state = "disabled")
+        except:
+            ()
+        window2.after(1250,Screen)
+
+    #Defines the Fo function. Fo is a button and when pressed it will add one to the Total variable. It also displays the answer chosen using .configure and then opens a new question screen
+    def Fo():
+        global Total
+        Total = Total + 1
+        First.configure(state = "disabled")
+        Second.configure(state = "disabled")
+        try:
+            Third.configure(state = "disabled")
+            Fourth.configure(bg = "red")
+        except:
+            ()
+        window2.after(1250,Screen)
+
+    #Defines the Exit function. When run it will close the whole program
+    def Exit():
+        window.destroy()
+
+    #Defines the Skip function. Handles the amount of skips a user has and makes sure they can't use more than 2 and when they skip a question a new one replaces it without adding to the total
+    def Skip():
+        global Skips
+        if Skips != 2:
+            Skips = Skips + 1
+            window2.destroy()
+            Start()
+        else:
+            Skips_label = Label(window2, text = "No More Skips", fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Skips_label.place(x = 375, y = 220, anchor = "n")
+
+    #Holds all the button coordinates and then creates a list of an x value and y value and shuffles the list to then provide a random location for the buttons when placed
+    x_list = [50, 425, 50, 425]
+    y_list = [330, 330, 400, 400]
+    cords = list(zip(x_list, y_list))
+    random.shuffle(cords)
+    x_list,y_list = zip(*cords)
+    
+    if VAR <= 1:
+        Question_label = Label(window2, text = "Question {}: True or False".format(Number), fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+        Question_label.place( x = 50, y = 15)
+        Question_real = Label(window2, text = Question, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+        Question_real.place(x = 375, y = 125, anchor = "n") 
+        if Test == 14 or Test == 15 or Test == 16 or Test == 17:
+             Question_info = Label(window2, text = "Expanded version = {}".format(Correct),fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+             Question_info.place(x = 400, y = 200, anchor = "n")
+        if Test == 18 or Test == 19:
+            Question_info = Label(window2, text = "Factorised version is {}".format(Correct),fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Question_info.place(x = 400, y = 200, anchor = "n")
+        elif Test < 14:
+            Question_info = Label(window2, text = "The variable is {}".format(Correct), fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+            Question_info.place(x = 400, y = 200, anchor = "n")
+        First = Button(window2, text= "True", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = F)
+        First.place(x = 50, y = 330, width = 325, height = 60)
+        Second = Button(window2, text= "False", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = S)
+        Second.place(x = 425, y = 330, width = 325, height = 60)
+        Exit = Button(window2, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit).place(x = 50, y = 480, width = 325, height = 90)
+        Skip = Button(window2, text="Skip", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Skip).place(x = 425, y = 480, width = 325, height = 90)
+    else:
+        Question_label = Label(window2, text = "Question {}: Solve the following".format(Number), fg ='black', bg = "#93c47d", font = ("Calibri", 38))
+        Question_label.place( x = 50, y = 15)
+        Question_real = Label(window2, text = Question, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+        Question_real.place(x = 375, y = 150, anchor = "n") 
+        First = Button(window2, text= Correct, padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = F)
+        First.place(x = x_list[0], y = y_list[0], width = 325, height = 60)
+        Second = Button(window2, text= One, padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = S)
+        Second.place(x = x_list[1], y = y_list[1], width = 325, height = 60)
+        Third = Button(window2, text= Two, padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = T)
+        Third.place(x = x_list[2], y = y_list[2],width = 325, height = 60)
+        Fourth = Button(window2, text= Three, padx = 35, pady = 10, font = ("Calibri", 30),borderwidth = 4, command = Fo)
+        Fourth.place(x = x_list[3], y = y_list[3], width = 325, height = 60)
+        Exit = Button(window2, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+        Exit.place(x = 50, y = 480, width = 325, height = 90)
+        Skip = Button(window2, text="Skip", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Skip)
+        Skip.place(x = 425, y = 480, width = 325, height = 90)
+    VAR = VAR + 1
+    Number = Number + 1
+    window2.mainloop()
+
+#Defines the read function which reads from an external file and then creates arrays and variables which store these values
+def Read():
+    global Question
+    global Correct
+    global One
+    global Two
+    global Three
+    global num
+    global Test
+    Test = random_nums[num]
+    num = num + 1
+    with open('Questions.txt') as f:
+        Question2 = f.read()
+        Question_Split = (Question2.split(","))
+    Question = Question_Split[Test]
+    with open('Correct.txt') as f2:
+        C_Question = f2.read()
+        C_Question_Split = (C_Question.split(","))
+    Correct = C_Question_Split[Test]
+    with open('Wrong.txt') as f3:
+        W_Answers = f3.read()
+        W_Answers_split = (W_Answers.split("/"))
+    Wrong = W_Answers_split[Test]
+    WrongAnswers = (Wrong.split(","))
+    One = WrongAnswers[0]
+    Two = WrongAnswers[1]
+    Three = WrongAnswers[2]
+
+#Defines the Final function which generates the final screen by creating labels and placing them. It also decided the grade the user gets depending on the amount of questions the user got correct
+def Final():
+    global window3
+    window3 = Toplevel(window)
+
+    window3.geometry("800x600")
+    window3.configure(bg='#93c47d')
+    frame3 = Frame(window3, highlightbackground="#38761d", highlightthickness=7,width=800, height=600,bg ="#93c47d",bd= 0)
+    frame3.place( x = 0, y = 0)
+
+    final_title = Frame(window3, highlightbackground="#38761d", highlightthickness=5,width=700, height=100,bg ="#D9EAD3",bd= 0)  
+    final_title.place( x = 50, y = 15)
+    Outline = Frame(window3, highlightbackground="#38761d", highlightthickness=5,width=700, height=250,bg ="#D9EAD3",bd= 0)  
+    Outline.place( x = 50, y = 130)
+
+    Mark = Label(window3, text = "Overall Mark", fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+    Mark.place( x = 250, y = 30)
+
+    if Correct_answers >= 10:
+        Grade = "Achieved with Excellence"
+        Comment = "Fantastic!"
+    elif Correct_answers >= 7 and Correct_answers <= 9:
+        Grade = "Achieved with Merit"
+        Comment = "Great Job"
+    elif Correct_answers >= 4 and Correct_answers <=6:
+        Grade = "Achieved"
+        Comment = "Almost there"
+    else:
+        Grade = "Not Achieved"
+        Comment = ":("
+    
+    Label_grade = Label(window3, text = Grade, fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+    Label_grade.place( x = 400, y = 180, anchor = "c")
+    Label_mark = Label(window3, text = "{}/12 Questions Correct".format(Correct_answers), fg ='black', bg = "#D9EAD3", font = ("Calibri", 38))
+    Label_mark.place(x = 175, y = 220)
+    LabelComment = Label(window3, text = Comment, fg = 'black', bg = "#D9EAD3", font = ("Calibri", 38))
+    LabelComment.place( x = 375, y = 320, anchor = "c")
+
+    #Defines the Exit function. When run it will close the whole program
+    def Exit():
+        window.destroy()
+    
+    #Defines the Restart function. This function destroys all the windows that could be open and then runs the Reedo function to reset values and then runs the Start function
+    def Restart():
+        global window2
+        global window3
+        window2.destroy()
+        window3.destroy()
+        Reedo()
+        Start()
+    
+    Exit = Button(window3, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+    Exit.place(x = 50, y = 480, width = 325, height = 90)
+    Restart = Button(window3, text="Restart", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Restart)
+    Restart.place(x = 425, y = 480, width = 325, height = 90)
+
+#Defines the Exit function. When run it will close the whole program
+def Exit():
+    window.destroy()
+
+Start_button = Button(window, text="Start", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Start)
+Start_button.place(x = 40, y = 120, width = 300, height = 90)
+
+Exit_button = Button(window, text="Exit", padx = 35, pady = 10, font = ("Calibri", 30), borderwidth = 4, command = Exit)
+Exit_button.place(x = 40, y = 280, width = 300, height = 90)
+window.mainloop()
